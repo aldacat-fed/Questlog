@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
 import GameCover from "../components/GameCover";
@@ -9,39 +9,41 @@ import { useGame, useSaveGame } from "../hooks/useGames";
 import { STATUS_LABELS, STATUSES, type Game } from "../types";
 
 export default function GameDetailPage() {
-    const { id="" } = useParams();
-    const navigate = useNavigate();
-    const { data: game, setData: setGame, loading, error, reload } = useGame(id);
-    const { update, remove, saving, error: saveError } = useSaveGame();
-    const [notes, setNotes] = useState("");
+  const { id = "" } = useParams();
+  const navigate = useNavigate();
+  const { data: game, setData: setGame, loading, error, reload } = useGame(id);
+  const { update, remove, saving, error: saveError } = useSaveGame();
 
-    useEffect(() => {
-        if (game) setNotes(game.notes ?? "");
-    }, [game?.id]);
+  // Det användaren har skrivit men inte sparat än. null = inget utkast.
+  const [notesDraft, setNotesDraft] = useState<string | null>(null);
+  const notes = notesDraft ?? game?.notes ?? "";
 
-   async function save(changes: Partial<Omit<Game, "id">>) {
-        if (!game) return;
-        const result = await update(game.id, changes);
-        if (result) setGame({ ...game, ...changes });
-    }
+  async function save(changes: Partial<Omit<Game, "id">>): Promise<boolean> {
+    if (!game) return false;
+    const result = await update(game.id, changes);
+    if (result !== null) setGame({ ...game, ...changes });
+    return result !== null;
+  }
 
-    async function handleDelete() {
-        if (!game) return;
-        if (!window.confirm(`Are you sure you want to delete "${game.title}"?`)) return;
-        const removed = await remove(game.id);
-        if (removed) navigate("/");
-    }
+  async function handleDelete() {
+    if (!game) return;
+    if (!window.confirm(`Are you sure you want to delete "${game.title}"?`)) return;
+    const removed = await remove(game.id);
+    if (removed) navigate("/");
+  }
 
-    if (loading) return <Loading text="Loading game..." />;
+  if (loading) return <Loading text="Loading game..." />;
 
-    if (error || !game) {
-        return (
-           <div>
-               <ErrorMessage message={error ?? "Game not found"} onRetry={reload} />
-               <Link to ="/" className="back">← Back to list</Link>
-           </div>
-        );
-    }
+  if (error || !game) {
+    return (
+      <div>
+        <ErrorMessage message={error ?? "Game not found"} onRetry={reload} />
+        <Link to="/" className="back">
+          ← Back to list
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <article className="detail">
@@ -84,14 +86,16 @@ export default function GameDetailPage() {
             <textarea
               rows={4}
               value={notes}
-              onChange={(e) => setNotes(e.target.value)}
+              onChange={(e) => setNotesDraft(e.target.value)}
               aria-label="Notes"
             />
             <button
               type="button"
               className="btn btn--small"
               disabled={saving || notes === (game.notes ?? "")}
-              onClick={() => save({ notes })}
+              onClick={async () => {
+                if (await save({ notes })) setNotesDraft(null);
+              }}
             >
               Save notes
             </button>
