@@ -13,8 +13,8 @@ export default function GamesPage() {
     return (
     <section>
       <div className="page-head">
-        <h1>Din backlog</h1>
-        {games && !loading && <p className="page-head__count">{games.length} spel</p>}
+        <h1>Your backlog</h1>
+        {games && !loading && <p className="page-head__count">{games.length} games</p>}
       </div>
 
       <FilterBar value={filter} onChange={setFilter} />
