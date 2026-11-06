@@ -5,7 +5,7 @@ import GameCover from "../components/GameCover";
 import Loading from "../components/Loading";
 import StarRating from "../components/StarRating";
 import StatusBadge from "../components/StatusBadge";
-import { useGame, useSaveGame } from "../hooks/useGame";
+import { useGame, useSaveGame } from "../hooks/useGames";
 import { STATUS_LABELS, STATUSES, type Game } from "../types";
 
 export default function GameDetailPage() {
@@ -106,6 +106,4 @@ export default function GameDetailPage() {
       </div>
     </article>
   );
-}
-
 }
