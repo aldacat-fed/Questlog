@@ -1,7 +1,7 @@
 import { HANDLE } from "../config";
 import type { Game, NewGame, StatusFilter } from "../types";
 
-const BASE_URL = `https://questlog-two-orcin.vercel.app/${HANDLE}`;
+const BASE_URL = `https://questlog-api.vercel.app/api/${HANDLE}`;
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const response = await fetch(`${BASE_URL}${path}`, options);
