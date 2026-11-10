@@ -19,7 +19,7 @@ export default function GamesPage() {
 
       <FilterBar value={filter} onChange={setFilter} />
 
-      {loading && <Loading text="Laddar spel..." />}
+      {loading && <Loading text="Loading games..." />}
       {error && <ErrorMessage message={error} onRetry={reload} />}
       {!loading && !error && games && <GameList games={games} />}
     </section>
