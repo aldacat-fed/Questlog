@@ -1,0 +1,173 @@
+export type Language = "en" | "sv" | "bs";
+
+export const LANGUAGES: { code: Language; label: string; name: string }[] = [
+  { code: "en", label: "EN", name: "English" },
+  { code: "sv", label: "SV", name: "Svenska" },
+  { code: "bs", label: "BS/SR", name: "Bosanski / Srpski" },
+];
+
+const en = {
+  "nav.main": "Main menu",
+  "nav.all": "All games",
+  "nav.add": "Add game",
+  "nav.language": "Language",
+  "footer.text": "Game shelf for @{handle}",
+  "games.title": "Your backlog",
+  "games.count": "Games: {count}",
+  "filter.label": "Filter by status",
+  "filter.all": "All",
+  "status.want": "Want to play",
+  "status.playing": "Playing",
+  "status.completed": "Completed",
+  "status.dropped": "Dropped",
+  "loading.games": "Loading games...",
+  "loading.game": "Loading game...",
+  "list.empty": "No games here yet.",
+  "list.add": "Add a game",
+  "common.retry": "Retry",
+  "common.back": "← Back to list",
+  "errors.generic": "Something went wrong.",
+  "errors.notFound": "Game not found (404).",
+  "errors.network": "Could not reach the server.",
+  "errors.gameNotFound": "Game not found",
+  "detail.status": "Status",
+  "detail.rating": "Rating",
+  "detail.notes": "Notes",
+  "detail.saveNotes": "Save notes",
+  "detail.delete": "Delete game",
+  "detail.deleteConfirm": 'Are you sure you want to delete "{title}"?',
+  "rating.label": "Rating: {n} of 5",
+  "rating.rate": "Rate {n}",
+  "cover.alt": "Cover for {title}",
+  "cover.none": "No cover for {title}",
+  "form.heading": "Add game",
+  "form.title": "Title *",
+  "form.platform": "Platform *",
+  "form.status": "Status",
+  "form.rating": "Rating",
+  "form.coverUrl": "Cover image URL",
+  "form.notes": "Notes",
+  "form.save": "Save game",
+  "form.saving": "Saving...",
+  "form.required": "Title and platform are required.",
+  "notfound.text": "This page doesn't exist.",
+  "notfound.back": "To all games",
+};
+
+export type TranslationKey = keyof typeof en;
+
+const sv: Record<TranslationKey, string> = {
+  "nav.main": "Huvudmeny",
+  "nav.all": "Alla spel",
+  "nav.add": "Lägg till spel",
+  "nav.language": "Språk",
+  "footer.text": "Spelhylla för @{handle}",
+  "games.title": "Din backlog",
+  "games.count": "Spel: {count}",
+  "filter.label": "Filtrera på status",
+  "filter.all": "Alla",
+  "status.want": "Vill spela",
+  "status.playing": "Spelar",
+  "status.completed": "Klarat",
+  "status.dropped": "Lagt ner",
+  "loading.games": "Laddar spel...",
+  "loading.game": "Laddar spel...",
+  "list.empty": "Inga spel här än.",
+  "list.add": "Lägg till ett spel",
+  "common.retry": "Försök igen",
+  "common.back": "← Tillbaka till listan",
+  "errors.generic": "Något gick fel.",
+  "errors.notFound": "Spelet hittades inte (404).",
+  "errors.network": "Kunde inte nå servern.",
+  "errors.gameNotFound": "Spelet hittades inte",
+  "detail.status": "Status",
+  "detail.rating": "Betyg",
+  "detail.notes": "Anteckningar",
+  "detail.saveNotes": "Spara anteckningar",
+  "detail.delete": "Ta bort spel",
+  "detail.deleteConfirm": 'Vill du verkligen ta bort "{title}"?',
+  "rating.label": "Betyg: {n} av 5",
+  "rating.rate": "Betygsätt {n}",
+  "cover.alt": "Omslag för {title}",
+  "cover.none": "Inget omslag för {title}",
+  "form.heading": "Lägg till spel",
+  "form.title": "Titel *",
+  "form.platform": "Plattform *",
+  "form.status": "Status",
+  "form.rating": "Betyg",
+  "form.coverUrl": "Länk till omslag",
+  "form.notes": "Anteckningar",
+  "form.save": "Spara spel",
+  "form.saving": "Sparar...",
+  "form.required": "Titel och plattform måste fyllas i.",
+  "notfound.text": "Den här sidan finns inte.",
+  "notfound.back": "Till alla spel",
+};
+
+const bs: Record<TranslationKey, string> = {
+  "nav.main": "Glavni meni",
+  "nav.all": "Sve igre",
+  "nav.add": "Dodaj igru",
+  "nav.language": "Jezik",
+  "footer.text": "Polica igara – @{handle}",
+  "games.title": "Tvoj backlog",
+  "games.count": "Igre: {count}",
+  "filter.label": "Filtriraj po statusu",
+  "filter.all": "Sve",
+  "status.want": "Želim igrati",
+  "status.playing": "Igram",
+  "status.completed": "Završeno",
+  "status.dropped": "Napušteno",
+  "loading.games": "Učitavanje igara...",
+  "loading.game": "Učitavanje igre...",
+  "list.empty": "Još nema igara.",
+  "list.add": "Dodaj igru",
+  "common.retry": "Pokušaj ponovo",
+  "common.back": "← Nazad na listu",
+  "errors.generic": "Nešto je pošlo po zlu.",
+  "errors.notFound": "Igra nije pronađena (404).",
+  "errors.network": "Server nije dostupan.",
+  "errors.gameNotFound": "Igra nije pronađena",
+  "detail.status": "Status",
+  "detail.rating": "Ocjena",
+  "detail.notes": "Bilješke",
+  "detail.saveNotes": "Sačuvaj bilješke",
+  "detail.delete": "Obriši igru",
+  "detail.deleteConfirm": 'Želiš li zaista obrisati "{title}"?',
+  "rating.label": "Ocjena: {n} od 5",
+  "rating.rate": "Ocijeni {n}",
+  "cover.alt": "Naslovnica za {title}",
+  "cover.none": "Nema naslovnice za {title}",
+  "form.heading": "Dodaj igru",
+  "form.title": "Naslov *",
+  "form.platform": "Platforma *",
+  "form.status": "Status",
+  "form.rating": "Ocjena",
+  "form.coverUrl": "Link do naslovnice",
+  "form.notes": "Bilješke",
+  "form.save": "Sačuvaj igru",
+  "form.saving": "Čuvanje...",
+  "form.required": "Naslov i platforma su obavezni.",
+  "notfound.text": "Ova stranica ne postoji.",
+  "notfound.back": "Na sve igre",
+};
+
+export const translations: Record<Language, Record<TranslationKey, string>> = { en, sv, bs };
+
+// Slår upp en text och byter ut {platshållare}. Okända nycklar visas som de är.
+export function translate(
+  language: Language,
+  key: string,
+  vars?: Record<string, string | number>
+): string {
+  const dictionary: Record<string, string> = translations[language] ?? translations.en;
+  const fallback: Record<string, string> = translations.en;
+  let text = dictionary[key] ?? fallback[key] ?? key;
+
+  if (vars) {
+    for (const [name, value] of Object.entries(vars)) {
+      text = text.split(`{${name}}`).join(String(value));
+    }
+  }
+  return text;
+}

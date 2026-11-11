@@ -1,9 +1,11 @@
-import { STATUS_LABELS, type Status } from "../types";
+import { useLanguage } from "../hooks/useLanguage";
+import type { Status } from "../types";
 
 interface StatusBadgeProps {
   status: Status;
 }
 
 export default function StatusBadge({ status }: StatusBadgeProps) {
-  return <span className={`badge badge--${status}`}>{STATUS_LABELS[status]}</span>;
+  const { t } = useLanguage();
+  return <span className={`badge badge--${status}`}>{t(`status.${status}`)}</span>;
 }

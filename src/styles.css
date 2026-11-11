@@ -226,6 +226,24 @@ textarea { resize: vertical; }
 .form__error { color: var(--dropped); font-weight: 700; }
 .form .btn { justify-self: start; }
 
+/* ---------- Språkval ---------- */
+.header__right { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.lang { display: flex; gap: 0.25rem; }
+.lang__btn {
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.3rem 0.65rem;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  background: transparent;
+  color: #c9cef0;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.lang__btn:hover { border-color: #fff; color: #fff; }
+.lang__btn--active { background: #fff; border-color: #fff; color: var(--ink); }
+
 /* ---------- Status ---------- */
 .loading { display: flex; align-items: center; gap: 0.8rem; padding: 3rem 0; color: var(--muted); font-weight: 500; }
 .loading__dot { width: 1.1rem; height: 1.1rem; border-radius: 50%; border: 3px solid var(--line); border-top-color: var(--cobalt); animation: spin 0.8s linear infinite; }

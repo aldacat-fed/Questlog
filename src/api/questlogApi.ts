@@ -4,18 +4,24 @@ import type { Game, NewGame, StatusFilter } from "../types";
 const BASE_URL = `https://questlog-api.vercel.app/api/${HANDLE}`;
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
-  const response = await fetch(`${BASE_URL}${path}`, options);
+  let response: Response;
+  try {
+    response = await fetch(`${BASE_URL}${path}`, options);
+  } catch {
+    throw new Error("errors.network");
+  }
 
   if (!response.ok) {
-    if (response.status === 404) {
-      throw new Error("Game not found (404).");
-    }
-    throw new Error(`Something went wrong (status ${response.status}).`);
+    throw new Error(response.status === 404 ? "errors.notFound" : "errors.generic");
   }
 
   // DELETE kan svara utan innehåll
   const text = await response.text();
-  return (text ? JSON.parse(text) : undefined) as T;
+  try {
+    return (text ? JSON.parse(text) : undefined) as T;
+  } catch {
+    throw new Error("errors.generic");
+  }
 }
 
 const jsonOptions = (method: string, body: unknown): RequestInit => ({

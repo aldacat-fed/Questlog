@@ -25,7 +25,7 @@ export function useSaveGame() {
     try {
       return await action();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong.");
+      setError(err instanceof Error ? err.message : "errors.generic");
       return null;
     } finally {
       setSaving(false);

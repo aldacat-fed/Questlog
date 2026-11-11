@@ -23,7 +23,7 @@ export function useFetch<T>(fetcher: () => Promise<T>, deps: unknown[]) {
       })
       .catch((err: unknown) => {
         if (!cancelled) {
-          const message = err instanceof Error ? err.message : "Something went wrong.";
+          const message = err instanceof Error ? err.message : "errors.generic";
           setState({ key: requestKey, data: null, error: message });
         }
       });

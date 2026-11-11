@@ -1,3 +1,5 @@
+import { useLanguage } from "../hooks/useLanguage";
+
 interface StarRatingProps {
   value: number | null;
   // Om onChange saknas visas betyget bara (read-only)
@@ -5,6 +7,7 @@ interface StarRatingProps {
 }
 
 export default function StarRating({ value, onChange }: StarRatingProps) {
+  const { t } = useLanguage();
   const current = value ?? 0;
   const interactive = onChange !== undefined;
 
@@ -12,7 +15,7 @@ export default function StarRating({ value, onChange }: StarRatingProps) {
     <div
       className="stars"
       role={interactive ? "group" : "img"}
-      aria-label={`Rating: ${current} of 5`}
+      aria-label={t("rating.label", { n: current })}
     >
       {[1, 2, 3, 4, 5].map((star) => {
         const filled = star <= current;
@@ -30,7 +33,7 @@ export default function StarRating({ value, onChange }: StarRatingProps) {
             key={star}
             type="button"
             className={filled ? "star star--on" : "star"}
-            aria-label={`${star} stars`}
+            aria-label={t("rating.rate", { n: star })}
             // Klick på samma stjärna igen tar bort betyget
             onClick={() => onChange?.(star === value ? null : star)}
           >

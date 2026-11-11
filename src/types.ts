@@ -21,11 +21,4 @@ export interface NewGame {
   notes?: string;
 }
 
-export const STATUS_LABELS: Record<Status, string> = {
-  want: "Want to play",
-  playing: "Playing",
-  completed: "Completed",
-  dropped: "Dropped",
-};
-
-export const STATUSES = Object.keys(STATUS_LABELS) as Status[];
+export const STATUSES: Status[] = ["want", "playing", "completed", "dropped"];

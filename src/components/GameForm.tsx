@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
-import { STATUS_LABELS, STATUSES, type NewGame, type Status } from "../types";
+import { useLanguage } from "../hooks/useLanguage";
+import { STATUSES, type NewGame, type Status } from "../types";
 import StarRating from "./StarRating";
 
 interface GameFormProps {
@@ -11,22 +12,23 @@ interface GameFormProps {
 const PLATFORMS = ["PC", "PlayStation 5", "Xbox", "Switch", "Mobile"];
 
 export default function GameForm({ onSubmit, submitting, error }: GameFormProps) {
+  const { t } = useLanguage();
   const [title, setTitle] = useState("");
   const [platform, setPlatform] = useState("");
   const [status, setStatus] = useState<Status>("want");
   const [rating, setRating] = useState<number | null>(null);
   const [coverUrl, setCoverUrl] = useState("");
   const [notes, setNotes] = useState("");
-  const [validation, setValidation] = useState<string | null>(null);
+  const [missingFields, setMissingFields] = useState(false);
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
     if (!title.trim() || !platform.trim()) {
-      setValidation("Title and platform are required.");
+      setMissingFields(true);
       return;
     }
-    setValidation(null);
+    setMissingFields(false);
 
     const game: NewGame = { title: title.trim(), platform: platform.trim(), status };
     if (rating !== null) game.rating = rating;
@@ -35,16 +37,18 @@ export default function GameForm({ onSubmit, submitting, error }: GameFormProps)
     onSubmit(game);
   }
 
+  const message = missingFields ? t("form.required") : error ? t(error) : null;
+
   return (
     <form className="form" onSubmit={handleSubmit}>
       <label className="field">
-        <span>Title *</span>
+        <span>{t("form.title")}</span>
         <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Hollow Knight" />
       </label>
 
       <div className="form__row">
         <label className="field">
-          <span>Platform *</span>
+          <span>{t("form.platform")}</span>
           <input
             list="platforms"
             value={platform}
@@ -59,11 +63,11 @@ export default function GameForm({ onSubmit, submitting, error }: GameFormProps)
         </label>
 
         <label className="field">
-          <span>Status</span>
+          <span>{t("form.status")}</span>
           <select value={status} onChange={(e) => setStatus(e.target.value as Status)}>
             {STATUSES.map((s) => (
               <option key={s} value={s}>
-                {STATUS_LABELS[s]}
+                {t(`status.${s}`)}
               </option>
             ))}
           </select>
@@ -71,12 +75,12 @@ export default function GameForm({ onSubmit, submitting, error }: GameFormProps)
       </div>
 
       <div className="field">
-        <span>Rating</span>
+        <span>{t("form.rating")}</span>
         <StarRating value={rating} onChange={setRating} />
       </div>
 
       <label className="field">
-        <span>Cover image URL</span>
+        <span>{t("form.coverUrl")}</span>
         <input
           type="url"
           value={coverUrl}
@@ -86,18 +90,18 @@ export default function GameForm({ onSubmit, submitting, error }: GameFormProps)
       </label>
 
       <label className="field">
-        <span>Notes</span>
+        <span>{t("form.notes")}</span>
         <textarea rows={4} value={notes} onChange={(e) => setNotes(e.target.value)} />
       </label>
 
-      {(validation || error) && (
+      {message && (
         <p className="form__error" role="alert">
-          {validation ?? error}
+          {message}
         </p>
       )}
 
       <button type="submit" className="btn" disabled={submitting}>
-        {submitting ? "Saving..." : "Save game"}
+        {submitting ? t("form.saving") : t("form.save")}
       </button>
     </form>
   );

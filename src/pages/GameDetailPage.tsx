@@ -6,11 +6,13 @@ import Loading from "../components/Loading";
 import StarRating from "../components/StarRating";
 import StatusBadge from "../components/StatusBadge";
 import { useGame, useSaveGame } from "../hooks/useGames";
-import { STATUS_LABELS, STATUSES, type Game } from "../types";
+import { useLanguage } from "../hooks/useLanguage";
+import { STATUSES, type Game } from "../types";
 
 export default function GameDetailPage() {
   const { id = "" } = useParams();
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const { data: game, setData: setGame, loading, error, reload } = useGame(id);
   const { update, remove, saving, error: saveError } = useSaveGame();
 
@@ -27,19 +29,19 @@ export default function GameDetailPage() {
 
   async function handleDelete() {
     if (!game) return;
-    if (!window.confirm(`Are you sure you want to delete "${game.title}"?`)) return;
+    if (!window.confirm(t("detail.deleteConfirm", { title: game.title }))) return;
     const removed = await remove(game.id);
     if (removed) navigate("/");
   }
 
-  if (loading) return <Loading text="Loading game..." />;
+  if (loading) return <Loading text={t("loading.game")} />;
 
   if (error || !game) {
     return (
       <div>
-        <ErrorMessage message={error ?? "Game not found"} onRetry={reload} />
+        <ErrorMessage message={error ?? "errors.gameNotFound"} onRetry={reload} />
         <Link to="/" className="back">
-          ← Back to list
+          {t("common.back")}
         </Link>
       </div>
     );
@@ -48,7 +50,7 @@ export default function GameDetailPage() {
   return (
     <article className="detail">
       <Link to="/" className="back">
-        ← Back to list
+        {t("common.back")}
       </Link>
 
       <div className="detail__layout">
@@ -60,7 +62,7 @@ export default function GameDetailPage() {
           <p className="detail__platform">{game.platform}</p>
 
           <div className="panel">
-            <h2>Status</h2>
+            <h2>{t("detail.status")}</h2>
             <div className="filters">
               {STATUSES.map((status) => (
                 <button
@@ -70,24 +72,24 @@ export default function GameDetailPage() {
                   disabled={saving}
                   onClick={() => save({ status })}
                 >
-                  {STATUS_LABELS[status]}
+                  {t(`status.${status}`)}
                 </button>
               ))}
             </div>
           </div>
 
           <div className="panel">
-            <h2>Rating</h2>
+            <h2>{t("detail.rating")}</h2>
             <StarRating value={game.rating} onChange={(rating) => save({ rating })} />
           </div>
 
           <div className="panel">
-            <h2>Notes</h2>
+            <h2>{t("detail.notes")}</h2>
             <textarea
               rows={4}
               value={notes}
               onChange={(e) => setNotesDraft(e.target.value)}
-              aria-label="Notes"
+              aria-label={t("detail.notes")}
             />
             <button
               type="button"
@@ -97,14 +99,14 @@ export default function GameDetailPage() {
                 if (await save({ notes })) setNotesDraft(null);
               }}
             >
-              Save notes
+              {t("detail.saveNotes")}
             </button>
           </div>
 
           {saveError && <ErrorMessage message={saveError} />}
 
           <button type="button" className="btn btn--danger" disabled={saving} onClick={handleDelete}>
-            Delete game
+            {t("detail.delete")}
           </button>
         </div>
       </div>
