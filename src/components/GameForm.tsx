@@ -8,7 +8,7 @@ interface GameFormProps {
   error: string | null;
 }
 
-const PLATFORMS = ["PC", "PlayStation 5", "Xbox", "Switch", "Mobil"];
+const PLATFORMS = ["PC", "PlayStation 5", "Xbox", "Switch", "Mobile"];
 
 export default function GameForm({ onSubmit, submitting, error }: GameFormProps) {
   const [title, setTitle] = useState("");
@@ -23,7 +23,7 @@ export default function GameForm({ onSubmit, submitting, error }: GameFormProps)
     event.preventDefault();
 
     if (!title.trim() || !platform.trim()) {
-      setValidation("Titel och plattform måste fyllas i.");
+      setValidation("Title and platform are required.");
       return;
     }
     setValidation(null);
@@ -38,13 +38,13 @@ export default function GameForm({ onSubmit, submitting, error }: GameFormProps)
   return (
     <form className="form" onSubmit={handleSubmit}>
       <label className="field">
-        <span>Titel *</span>
+        <span>Title *</span>
         <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Hollow Knight" />
       </label>
 
       <div className="form__row">
         <label className="field">
-          <span>Plattform *</span>
+          <span>Platform *</span>
           <input
             list="platforms"
             value={platform}
@@ -71,12 +71,12 @@ export default function GameForm({ onSubmit, submitting, error }: GameFormProps)
       </div>
 
       <div className="field">
-        <span>Betyg</span>
+        <span>Rating</span>
         <StarRating value={rating} onChange={setRating} />
       </div>
 
       <label className="field">
-        <span>Länk till omslag</span>
+        <span>Cover image URL</span>
         <input
           type="url"
           value={coverUrl}
@@ -86,7 +86,7 @@ export default function GameForm({ onSubmit, submitting, error }: GameFormProps)
       </label>
 
       <label className="field">
-        <span>Anteckningar</span>
+        <span>Notes</span>
         <textarea rows={4} value={notes} onChange={(e) => setNotes(e.target.value)} />
       </label>
 
@@ -97,7 +97,7 @@ export default function GameForm({ onSubmit, submitting, error }: GameFormProps)
       )}
 
       <button type="submit" className="btn" disabled={submitting}>
-        {submitting ? "Sparar..." : "Spara spel"}
+        {submitting ? "Saving..." : "Save game"}
       </button>
     </form>
   );

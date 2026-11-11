@@ -12,7 +12,7 @@ const FILTERS: { value: StatusFilter; label: string }[] = [
 
 export default function FilterBar({ value, onChange }: FilterBarProps) {
     return (
-        <div className="filters" role="group" aria-label="Filtrera på status">
+        <div className="filters" role="group" aria-label="Filter games by status">
            {FILTERS.map((filter) => (
             <button
                 key={filter.value}

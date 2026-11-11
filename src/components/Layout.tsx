@@ -9,12 +9,12 @@ export default function Layout() {
           <Link to="/" className="brand">
             Questlog
           </Link>
-          <nav className="nav" aria-label="Huvudmeny">
+          <nav className="nav" aria-label="Main menu">
             <NavLink to="/" end className="nav__link">
-              Alla spel
+              All games
             </NavLink>
             <NavLink to="/games/new" className="nav__link">
-              Lägg till spel
+              Add game
             </NavLink>
           </nav>
         </div>
@@ -24,7 +24,7 @@ export default function Layout() {
         <Outlet />
       </main>
 
-      <footer className="footer">Spelhylla för @{HANDLE}</footer>
+      <footer className="footer">Game shelf for @{HANDLE}</footer>
     </div>
   );
 }
